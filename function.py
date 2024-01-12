@@ -1,5 +1,6 @@
 import smtplib, ssl
 from email.message import EmailMessage
+from newsapi import NewsApiClient
 
 def send_email_news(message,send_to='ajin.ekletu@gmail.com'):
     port = 465
@@ -25,3 +26,13 @@ def mail_msg(subject, message, send_to='ajin.ekletu@gmail.com'):
     msg['To'] = send_to
     msg.set_content(message)
     return msg
+
+def get_top_news(api,subject_query,sources_query,language_query):
+
+    newsapi = NewsApiClient(api_key=api)
+
+    top_headlines = newsapi.get_top_headlines(q=subject_query,
+                                              sources=sources_query,
+                                              language=language_query)
+
+    return top_headlines
